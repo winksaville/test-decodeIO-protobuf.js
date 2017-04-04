@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "pretest:awesome": "tsc -p awesome/tsconfig.json",
+    "test:awesome": "node build/awesome/test.js",
+    "predbg:awesome": "yarn pretest:awesome",
+    "dbg:awesome": "node debug --inspect build/awesome/test.js"
+  },
+  "dependencies": {
+    "node": "^0.0.0",
+    "protobufjs": "^6.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^7.0.12",
+    "typescript": "^2.2.2"
+  }
+}
