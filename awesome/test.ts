@@ -7,14 +7,24 @@ protobuf.load("./awesome/awesome.proto", (err: Error, root: protobuf.Root) => {
   console.log(`AwesomeMessage=${AwesomeMessage}`);
 
   let message: any = AwesomeMessage.create({ awesomeField: "hello" });
+  console.log(`message["awesomeField"]=${message["awesomeField"]}`);
   console.log(`message.awesomeField=${message.awesomeField}`);
 
   let buffer = AwesomeMessage.encode(message).finish();
   console.log(`buffer.length=${buffer.length}`);
-  //for (let i = 0; i < buffer.length; i++) {
-  //  console.log(`buffer[${i}]=${buffer[i]}`);
-  //}
+  console.log(`buffer=[${Array.prototype.toString.call(buffer)}]`);
+  console.log(`buffer=${JSON.stringify(buffer)}`);
+  console.log(new Buffer(buffer).toString("hex"));
+  process.stdout.write("[");
+  for (let i = 0; i < buffer.length; i++) {
+    process.stdout.write(`${buffer[i].toString(16)}`);
+    if (i != buffer.length-1) {
+      process.stdout.write(",");
+    }
+  }
+  console.log("]");
 
-  let decodedMessage: any = AwesomeMessage.decode(buffer);
-  console.log(`decodedMessage.awesomeField=${decodedMessage.awesomeField}`);
+  let decoded: any = AwesomeMessage.decode(buffer);
+  console.log(`decoded["awesomeField"]=${decoded["awesomeField"]}`);
+  console.log(`decoded.awesomeField=${decoded.awesomeField}`);
 });
